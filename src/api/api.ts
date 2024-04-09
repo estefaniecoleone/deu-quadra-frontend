@@ -17,14 +17,14 @@ export function useApi(): AuthResult {
   });
 
   async function login(email: string, password: string): Promise<AxiosResponse<LoginOutput, any>> {
-    return client.post<LoginOutput>('/users/login', {
+    return client.post<LoginOutput>('/locador/login', {
       email,
       password,
     });
   }
 
   async function getEmpresas(nome: string, idEmpresa: number, rua: string, bairro: string,numero: string): Promise<AxiosResponse<GetEmpresasOutput[], any>> {
-    return client.get<GetEmpresasOutput>('/empresas/', {
+    return client.get<GetEmpresasOutput>('/companies/', {
       nome, idEmpresa, rua, bairro,numero,
     });
   }
@@ -39,5 +39,28 @@ export function useApi(): AuthResult {
       }
     })
   }
-  return { login, getCourts, getEmpresas };
+
+  async function getEmpresasLatLong(lat:number,lon: number): Promise<AxiosResponse<GetEmpresasOutput[], any>> {
+    return client.get<GetEmpresasOutput[]>('/companies',{
+        coordinates: {
+          lat,lon
+      },
+      properties: {
+        lat,lon
+    }
+    })
+  }
+
+  async function getQuadrasLatLong(lat:number,lon: number): Promise<AxiosResponse<GetCourtsOutput[], any>> {
+    return client.get<GetCourtsOutput[]>('/courts',{
+        coordinates: {
+          lat,lon
+      },
+      properties: {
+        lat,lon
+    }
+    })
+  }
+
+  return { login, getCourts, getEmpresas, getEmpresasLatLong };
 }

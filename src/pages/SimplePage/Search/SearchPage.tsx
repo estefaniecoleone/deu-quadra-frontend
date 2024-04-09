@@ -10,7 +10,7 @@ import { Map } from './Map/Map';
 import { LanguageContext } from '../../../contexts/Language';
 
 export function SearchPage() {
-  const { getCourts } = useApi();
+  const { getEmpresasLatLong } = useApi();
   const [courts, setCourts] = useState([]);
   const [distance, setDistance] = useState(10); // Estado para controlar a distância selecionada
   const [isLoading, setLoading] = useState(true);
@@ -30,10 +30,11 @@ export function SearchPage() {
         (position) => {
           const { latitude, longitude } = position.coords;
 
-          getCourts(latitude, longitude, distance).then(({ data }) => {
+          getEmpresasLatLong(latitude, longitude, distance).then(({ data }) => {
             setPosition({ lat: latitude, lon: longitude });
             setCourts(data);
             setLoading(false);
+            console.log(data)
           });
         },
         (error) => {

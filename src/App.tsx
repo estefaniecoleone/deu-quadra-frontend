@@ -50,7 +50,9 @@ export function App() {
                 <Route
                   path="/empresa/:id"
                   element={
+                    <GuardedRoute>
                       <LocadorPage />
+                    </GuardedRoute>
                   }
                 />
               </Routes>

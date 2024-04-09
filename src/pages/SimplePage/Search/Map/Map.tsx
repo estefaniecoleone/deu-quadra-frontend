@@ -34,7 +34,7 @@ export function Map(props: MapProps) {
   return (
     <MapContainer
       center={[props.lat, props.lon]}
-      zoom={9}
+      zoom={11}
       scrollWheelZoom={false}
       style={{ height: '40vh' }}
     >
@@ -46,7 +46,14 @@ export function Map(props: MapProps) {
       {props.courts.map((court) => {
         //filter duplicated companys
         const before = map.size;
-        map.add(court.Empresa.idEmpresa);
+        console.log(court)
+        console.log(court.idEmpresa)
+        console.log(court.Empresa)
+
+
+
+
+        map.add(court.idEmpresa);
         const after = map.size;
 
         if (before === after) {
@@ -54,19 +61,19 @@ export function Map(props: MapProps) {
         }
         return (
           <Marker
-            position={[court.Empresa.lat, court.Empresa.lon]}
-            key={court.Empresa.idEmpresa}
+            position={[court.lat, court.lon]}
+            key={court.idEmpresa}
           >
             <Popup>
               <span>
-                Empresa: {court.Empresa.nome}
+                Empresa: {court.nome}
                 <br />
                 Distancia:{' '}
                 {getDistanceFromLatLonInKm(
                   props.lat,
                   props.lon,
-                  court.Empresa.lat,
-                  court.Empresa.lon
+                  court.lat,
+                  court.lon
                 )}{' '}
                 Km
               </span>

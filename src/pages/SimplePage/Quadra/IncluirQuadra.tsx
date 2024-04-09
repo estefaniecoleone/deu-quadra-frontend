@@ -23,7 +23,7 @@ export function IncluirQuadraPage() {
     const [courtImageUrl, setCourtImageUrl] = useState('');
     const [courtPrice, setCourtPrice] = useState('');
     const [courtDescription, setCourtDescription] = useState('');
-    const [companyId, setCompanyId] = useState(1); // Assuming a default company ID
+    const [companyId, setCompanyId] = useState(4); // Assuming a default company ID
   
     const handleCourtSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();

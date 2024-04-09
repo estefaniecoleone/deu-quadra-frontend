@@ -9,6 +9,7 @@ export interface CardProps {
     descricao: string;
     idQuadra: number;
     imagemUrl: string;
+    idEmpresa: number;
     Empresa: {
       nome: string;
       idEmpresa: number;
@@ -37,13 +38,13 @@ export function Card({ props }: CardProps) {
         <div>
           <div className="flex flex-col">
             <span className="text-xs text-discreet font-bold">
-              {props.Empresa.bairro}, {props.Empresa.rua}, {props.Empresa.numero}{' '}
+              {props.bairro}, {props.rua}, {props.numero}{' '}
             </span>
             <span className="text-xl whitespace-nowrap overflow-hidden text-ellipsis">
               {props.nome}
             </span>
-            <Link to={'/company/' + props.Empresa.idEmpresa}>
-              <span className="text-sm text-green-800">{props.Empresa.nome}</span>
+            <Link to={'/empresa/' + props.idEmpresa}>
+              <span className="text-sm text-green-800">{props.nome}</span>
             </Link>
           </div>
 
@@ -60,6 +61,14 @@ export function Card({ props }: CardProps) {
           >
             {languageContext.language.cardButtonAction}
           </Link>
+
+          <Link
+            to={'/empresa/' + props.idEmpresa}
+            className="px-5 py-2 text-green-600 border rounded-sm border-green-500 hover:bg-green-500 hover:text-white"
+          >
+            VER TODAS AS QUADRAS
+          </Link>
+
         </div>
       </div>
     </div>
