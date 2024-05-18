@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { useAuth } from '../hooks/Auth';
-import { GetCourtsOutput, LoginOutput, GetEmpresasOutput } from './endpointsOutput';
+import { GetCourtsOutput, LoginOutput, GetEmpresasOutput, TesteOutPut } from './endpointsOutput';
 
 export interface AuthResult {
   login: (email: string, password: string)=> Promise<AxiosResponse<LoginOutput, any>>;
@@ -29,15 +29,36 @@ export function useApi(): AuthResult {
     });
   }
 
-  async function getCourts(lat:number,lon: number, distanceInKillometers: number): Promise<AxiosResponse<GetCourtsOutput[], any>> {
+  // async function getCourts(lat:number,lon: number, distanceInKillometers: number): Promise<AxiosResponse<GetCourtsOutput[], any>> {
+  //   console.log("chamar ein")
+  //   return client.get<GetEmpresasOutput[]>('/courts/search',{
+  //       coordinates: {
+  //         lat,lon
+  //     },
+  //     properties: {
+  //         distanceInKillometers
+      
+  //       }
+        
+  //   })
+  //   console.log("banana");
+  // }
+
+  // async function getCourts(lat:number,lon: number, km: number): Promise<AxiosResponse<TesteOutPut[], any>> {
+  //   console.log("chamar ein")
+  //   return client.post<TesteOutPut[]>('/courts/search',{
+  //       lat,lon,km
+      
+  //       });
+        
+  //   };
+
+    async function getCourts(lat:number,lon: number, km: number): Promise<AxiosResponse<GetCourtsOutput[], any>> {
+    console.log("chamar ein")
     return client.post<GetCourtsOutput[]>('/courts/search',{
-        coordinates: {
-          lat,lon
-      },
-      properties: {
-          distanceInKillometers
-      }
-    })
+      lat,lon,km
+        
+    });
   }
 
   async function getEmpresasLatLong(lat:number,lon: number): Promise<AxiosResponse<GetEmpresasOutput[], any>> {

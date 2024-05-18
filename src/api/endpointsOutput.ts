@@ -36,3 +36,13 @@ export type GetCourtsOutput = {
             imagemUrl: string,
         }
   } 
+
+  export type TesteOutPut = {
+        nome: string,
+        preco: number,
+        descricao: string,
+        idQuadra:number,
+        imagemUrl: string,
+
+    } 
+  

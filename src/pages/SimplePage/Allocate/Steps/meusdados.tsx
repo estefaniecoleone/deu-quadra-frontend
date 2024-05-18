@@ -3,15 +3,8 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-//import ptBrLocale from '@fullcalendar/core/locales/pt-br';
-import es from '@fullcalendar/core/locales/es-us';
-import { formatDate } from '@fullcalendar/core'
-import moment from 'moment';
-
+import ptBrLocale from '@fullcalendar/core/locales/pt-br';
 import Navbar from '../../../components/Navbar/Navbar';
-import { FormEvent } from 'react';
-import axios from 'axios';
-import { useAuth } from '../../../../hooks/Auth';
 
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -19,15 +12,8 @@ export function ChooseDateStep() {
   const [selectedRange, setSelectedRange] = useState(null);
   const [scheduledEvent, setScheduledEvent] = useState(null);
   const navigate = useNavigate();
-  const [varStart, setVarStart] = useState(null);
-  const [varEnd, setVarEnd] = useState(null);
 
   const [calendarHeight, setCalendarHeight] = useState('70vh');
-
-  const [successMessage, setSuccessMessage] = useState('');
-
-
-
 
   useEffect(() => {
     function updateCalendarHeight() {
@@ -47,59 +33,22 @@ export function ChooseDateStep() {
   }, []);
 
   const handleSelect = (selectInfo) => {
-
     setSelectedRange(selectInfo);
     console.log('Intervalo de tempo selecionado:', selectInfo.start, selectInfo.end);
-
-    console.log(selectInfo.end.toString());
-    //convertendo para o formato que o Back espera
-    const formato = "YYYY-MM-DDTHH:mm:ss";
-    let str = formatDate(selectInfo.start, {
-      month: 'numeric',
-      year: 'numeric',
-      day: 'numeric',
-      timeZoneName: 'short',
-      timeZone: 'UTC'
-      //locale: 'es'
-    })
-    //"startDate": "2007-12-03T10:15:30",
-    console.log(str) // "1 de septiembre de 2018 0:00 UTC"
-    console.log(varStart);
-    const dataConvertidaStart = moment(selectInfo.start, "MM/DD/YYYY, hh:mm A").format(formato);
-    const dataConvertidaEnd = moment(selectInfo.end, "MM/DD/YYYY, hh:mm A").format(formato);
-    console.log(dataConvertidaStart); // Saída: 2024-05-17T12:00:00
-    setVarStart(dataConvertidaStart);
-    setVarEnd(dataConvertidaEnd);
   };
 
-  
-  const handleScheduleEvent = async () => {
+  const handleScheduleEvent = () => {
     if (selectedRange) {
       const eventName = window.prompt('Nome do evento:');
       if (eventName) {
-        try {
-          console.log();
-        const response = await axios.post('http://localhost:8080/reservas', {         
-        startDate: varStart, // Formatar a data de início
-        endDate: varEnd, // Formatar a data de fim
-        nome: eventName,
-        locatarioId: idUsuario})
-  
-        console.log("cheguei no back");
-        setSuccessMessage('Reserva Realizada com sucesso!');
-        window.alert('Reserva Realizada com sucesso! Entrada: '+ varStart + 'Saida: '+ varEnd); 
-        } catch (error) {
-          console.log('Error creating company:', error);
-        };
+        setScheduledEvent({
+          start: selectInfo.start.toLocaleString('pt-BR'), // Formatar a data de início
+          end: selectInfo.end.toLocaleString('pt-BR'), // Formatar a data de fim
+          name: eventName
+        });
       }
     }
-  }
-
-
-
-  const authentication = useAuth();
-  const idUsuario = authentication.user?.id;
-
+  };
 
   return (
     
@@ -111,9 +60,9 @@ export function ChooseDateStep() {
           initialView="timeGridWeek"
           selectable={true}
           select={handleSelect}
-          locale={es}
+          locale={ptBrLocale}
           allDaySlot={false}
-          height={calendarHeight}          
+          height={calendarHeight}
           themeSystem="standard"
           headerToolbar={{
             start: 'title',
@@ -153,16 +102,14 @@ export function ChooseDateStep() {
           }}
         />
         {selectedRange && (
-          
           <div>
-            <p><center>Início: {selectedRange.start.toLocaleString('es')}</center></p>
-            <p><center>Fim: {selectedRange.end.toLocaleString('es')}</center></p>
+            <p><center>Início: {selectedRange.start.toLocaleString('pt-BR')}</center></p>
+            <p><center>Fim: {selectedRange.end.toLocaleString('pt-BR')}</center></p>
             <div className="text-center">
               <button onClick={handleScheduleEvent} className="bg-green-500 text-white p-2 rounded-md hover:bg-green-600">Reservar</button>
             </div>
           </div>
         )}
-
         {scheduledEvent && (
           <p>Evento agendado de {scheduledEvent.start} a {scheduledEvent.end}: {scheduledEvent.name}</p>
         )}

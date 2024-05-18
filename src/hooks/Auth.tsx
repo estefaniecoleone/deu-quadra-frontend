@@ -11,7 +11,7 @@ interface Tokens {
 }
 
 interface User {
-  name: string;
+  id: number;
 }
 
 export interface AuthResult {
@@ -30,7 +30,8 @@ export function useAuth(): AuthResult {
       ? JSON.parse(localStorage.getItem('user') as string)
       : undefined
   );
-  const [tokens, setTokens] = useState<Tokens | undefined>(
+  const [tokens, _setTokens] = useState<Tokens | undefined>(
+
     localStorage.getItem('tokens')
       ? JSON.parse(localStorage.getItem('tokens') as string)
       : undefined
@@ -57,7 +58,18 @@ export function useAuth(): AuthResult {
 
   function logOff() {
     setUser(undefined);
-    setTokens(undefined);
+    _setTokens(undefined);
+  }
+
+  function setTokens(tokens: Tokens) {
+    const string = JSON.parse(atob(tokens.authToken.token.split('.')[1])).sub;
+    
+    const user = string.split('=')[1].split(',')[0];
+    setUser({
+      id: Number(user),
+    })
+    
+    _setTokens(tokens);
   }
 
   return {

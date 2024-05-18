@@ -20,6 +20,18 @@ export interface CardProps {
   };
 }
 
+export interface CardPropsEmpresa {
+  props: {
+      nome: string;
+      idEmpresa: number;
+      rua: string;
+      bairro: string;
+      numero: string;
+      lat: string;
+      long: string;
+    };
+  };
+
 function formatPrice(price: number) {
   return price.toLocaleString('pt-BR', {
     minimumFractionDigits: 2,

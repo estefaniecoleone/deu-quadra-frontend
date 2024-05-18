@@ -19,6 +19,15 @@ import { LanguageProvider } from './hooks/Language';
 import { LocadorPage } from './pages/SimplePage/Locador/LocadorPage';
 import { IncluirQuadraPage } from './pages/SimplePage/Quadra/IncluirQuadra';
 import { InfosQuadraPage } from './pages/SimplePage/Quadra/InfosQuadraPage';
+import { Signuplocatariopage } from './pages/SimplePage/Login/Signuplocatariopage';
+import { ResetPasswordPage } from './pages/SimplePage/Login/ResetPasswordPage';
+import { PresignupPage } from './pages/SimplePage/Login/PresignupPage';
+import { Signuplocadorpage } from './pages/SimplePage/Login/Signuplocadorpage';
+import {CadastroEmpresaPage} from './pages/SimplePage/Cadastro/CadastroEmpresaPage';
+import {SignupPageTeste} from './pages/SimplePage/Cadastro/SignupPageTeste';
+
+
+
 
 
 
@@ -36,25 +45,19 @@ export function App() {
               <Routes>
                 <Route path="/" element={<LandingPage />}></Route>
                 <Route path="/login" element={<LoginPage />}></Route>
+                <Route path="/signuplocador" element={<Signuplocadorpage/>}></Route>
+                <Route path="/signuplocatario" element={<Signuplocatariopage />}></Route>
+                <Route path="/presignup" element={<PresignupPage />}></Route>
+                <Route path="/reset" element={<ResetPasswordPage />}></Route>
                 <Route path="/search" element={<SearchPage />} />
                 <Route path="/novaQuadra" element={<IncluirQuadraPage />} />
                 <Route path="/infosQuadra/:id" element={<InfosQuadraPage />} />
-                <Route
-                  path="/allocate/:id"
-                  element={
-                    <GuardedRoute>
-                      <AllocatePage />
-                    </GuardedRoute>
-                  }
-                />
-                <Route
-                  path="/empresa/:id"
-                  element={
-                    <GuardedRoute>
-                      <LocadorPage />
-                    </GuardedRoute>
-                  }
-                />
+                <Route path="/company" element={<CadastroEmpresaPage />} />
+                <Route path="/allocate/:id" element={<GuardedRoute><AllocatePage /></GuardedRoute>}/>
+                <Route path="/empresa/:id"  element={<GuardedRoute><LocadorPage /></GuardedRoute>}/>
+                <Route path="/teste" element={<SignupPageTeste />} />
+
+                
               </Routes>
             </Router>
           </AuthenticationContext.Provider>

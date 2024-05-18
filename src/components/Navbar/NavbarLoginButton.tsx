@@ -10,6 +10,7 @@ export function NavbarLoginButton() {
   const navigate = useNavigate();
 
   if (auth?.isAuthenticated) {
+    
     return (
       <div className="flex flex-row gap-4">
         <div className="flex flex-col items-end">

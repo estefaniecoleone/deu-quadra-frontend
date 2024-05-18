@@ -31,7 +31,7 @@ export function Login() {
       .then(({ data }) => {
         auth!.setTokens({
           authToken: {
-            token: data.accessToken,
+            token: data,
             expiresIn: new Date(),
           },
           refreshToken: {
@@ -67,7 +67,18 @@ export function Login() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder={language.passwordButtonPlaceholder}
         />
-        <div className="flex items-center justify-between">
+         <div className="flex justify-between items-center mt-3">
+          <a href="/Reset" className="text-sm text-blue-500 hover:underline">Esqueci minha senha</a>
+          </div>
+               <div className="flex w-full justify-between px-2 mt-3">
+          
+        <button
+            type="button"
+            className="bg-green-500 text-white p-2 rounded-md mt-3 mx-auto hover:bg-blue-600"
+            onClick={() => navigate('/')}
+          >
+            Voltar
+          </button>
           <button
             type="submit"
             className="bg-green-500 text-white p-2 rounded-md mt-3 mx-auto hover:bg-green-600"

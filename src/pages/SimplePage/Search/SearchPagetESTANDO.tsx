@@ -10,7 +10,7 @@ import { Map } from './Map/Map';
 import { LanguageContext } from '../../../contexts/Language';
 
 export function SearchPage() {
-  const {getCourts } = useApi();
+  const { getCourts } = useApi();
   const [courts, setCourts] = useState([]);
   const [distance, setDistance] = useState(10); // Estado para controlar a distância selecionada
   const [isLoading, setLoading] = useState(true);
@@ -29,21 +29,14 @@ export function SearchPage() {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          console.log("oi");
-          console.log(latitude)
+
           getCourts(latitude, longitude, distance).then(({ data }) => {
-            console.log("to aqui")
-            console.log(latitude)
-
-
             setPosition({ lat: latitude, lon: longitude });
             setCourts(data);
             setLoading(false);
-            console.log(data.length)
           });
         },
         (error) => {
-          console.log(error);
           setLoading(false);
         },
         { enableHighAccuracy: true, maximumAge: 0 }
@@ -59,7 +52,7 @@ export function SearchPage() {
     setDistance(newDistance); // Atualizar o estado da distância
   };
 
-  const distanceOptions = [1, 3, 5, 8, 10, 50];
+  const distanceOptions = [1, 3, 5, 8, 10];
 
   return (
     <SimplePage>
@@ -94,7 +87,6 @@ export function SearchPage() {
                 </label>
               </div>
             ))}
-            <button>VERT TODAS</button>
             {/* Repita o processo para outras distâncias, se necessário */}
           </form>
           <div className="flex flex-col gap-5 col-span-2">

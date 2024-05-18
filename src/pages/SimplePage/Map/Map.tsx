@@ -31,6 +31,7 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
   const d = R * c; // Distance in km
   return d;
 }
+
 var marcador = L.icon({
   iconUrl: 'src/pages/SimplePage/Search/pin.png',
   iconSize: [30,30],
@@ -55,6 +56,9 @@ export function Map(props: MapProps) {
         const before = map.size;
         console.log(court)
         console.log(court.idEmpresa)
+        console.log(court.Empresa)
+
+
 
 
         map.add(court.idEmpresa);

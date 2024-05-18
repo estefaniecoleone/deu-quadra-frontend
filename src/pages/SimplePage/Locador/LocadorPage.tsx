@@ -56,11 +56,11 @@ export function LocadorPage() {
 
           <h2>ACESSO RAPIDO: </h2>
           <div className="flex items-center">
-            <Link
-            to={'/allocate/'}
+          <Link
+            to={'/company'}
             className="px-5 py-2 text-green-600 border rounded-sm border-green-500 hover:bg-green-500 hover:text-white"
           >
-            Editar Cadastro
+            Cadastrar Empresa
           </Link>
           </div>
           <div className="flex items-center">
@@ -71,12 +71,21 @@ export function LocadorPage() {
             Minhas Quadras
           </Link>
           </div>
+          <div className="flex items-center">
+            <Link
+            to={'/allocate/'}
+            className="px-5 py-2 text-green-600 border rounded-sm border-green-500 hover:bg-green-500 hover:text-white"
+          >
+            Editar Cadastro
+          </Link>
+          </div>
           <Link
             to={'/novaQuadra/'}
             className="px-5 py-2 text-green-600 border rounded-sm border-green-500 hover:bg-green-500 hover:text-white"
           >
             Incluir Quadra
           </Link>
+          
 </div>
 
       
